@@ -62,10 +62,13 @@ grails.hibernate.cache.queries = false
 environments {
     development {
         grails.logging.jul.usebridge = true
+        app.host='http://127.0.0.1:8080/'
     }
     production {
         grails.logging.jul.usebridge = false
-        // TODO: grails.serverURL = "http://www.changeme.com"
+        app.host='http://domainProdName/'
+
+
     }
 }
 
@@ -73,9 +76,13 @@ environments {
 log4j = {
     // Example of changing the log pattern for the default console appender:
     //
-    //appenders {
-    //    console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
-    //}
+    appenders {
+        console name: 'stdout', layout: pattern(conversionPattern: '%d{yyyy-MM-dd HH:mm:ss} %-5p [%c{2}] %m%n')
+        rollingFile name:'fileAppender', file: "/var/log/tomcat6/bq-admin.log", append: true, layout: pattern(conversionPattern: '%d{yyyy-MM-dd HH:mm:ss} %-5p [%c{2}] %m%n')
+        'null' name:'stacktrace'
+    }
+    info stdout : ["grails.app.service", "grails.app.services", "grails.app.domains", "grails.app.domain", "grails.app.controller", "grails.app.controllers"]
+
 
     error  'org.codehaus.groovy.grails.web.servlet',        // controllers
            'org.codehaus.groovy.grails.web.pages',          // GSP
