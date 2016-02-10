@@ -9,5 +9,6 @@ class UrlMappings {
 
 		"/"(controller: "shortener", action: 'index')
 		"500"(view:'/error')
+		"/~/${idEncoded}"(controller: "shortener",action: 'parseUrlShorten')
 	}
 }

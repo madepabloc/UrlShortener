@@ -39,7 +39,7 @@ class ShortenerUtils {
         def bytes,bytesDecoded
         String idDecoded
 
-        bytes=DatatypeConverter.parseBase64Binary(encodeId())
+        bytes=DatatypeConverter.parseBase64Binary(encondedId)
         bytesDecoded=Base64.decodeBase64(bytes)
         idDecoded = new String(bytesDecoded)
 
@@ -57,7 +57,7 @@ class ShortenerUtils {
     static String buildUrlShortened(String host, String appName, String idEncoded){
         String shortUrl
 
-        shortUrl = "${host}${appName}/~${idEncoded}"
+        shortUrl = "${host}${appName}/~/${idEncoded}"
 
         return shortUrl
     }

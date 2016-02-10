@@ -34,4 +34,15 @@ class ShortenerService {
         urlRecord.urlShorted=shortUrl
         urlRecord.save()
     }
+
+    def boolean  existsUrlShortened(String urlComplete){
+        int count
+
+        count =  UrlRecord.createCriteria().count {
+            eq('urlComplete',urlComplete)
+        }
+
+        count > 0
+
+    }
 }

@@ -23,8 +23,18 @@ class ShortenerController {
         host = grailsApplication.config.app.host
         largeURL = params.largeUrl
 
+
+
 //        save urlRecord in db and get the id
-        rowDbId = shortenerService.saveUrl(largeURL)
+        if(shortenerService.existsUrlShortened(largeURL)){
+            shortUrl=UrlRecord.findByUrlComplete(largeURL).urlShorted
+            render(template: '/shortener/showUrlShortened',model: [data: shortUrl])
+            return
+        }else{
+            rowDbId = shortenerService.saveUrl(largeURL)
+        }
+
+
 
 
 //        encode the id to generate the shorten url
@@ -39,6 +49,18 @@ class ShortenerController {
 
         log.info("${largeURL} -> ${shortUrl}")
         render(template: '/shortener/showUrlShortened',model: [data: shortUrl])
+    }
+
+    def parseUrlShorten(String idEncoded){
+        int idDecoded
+        UrlRecord urlRecord
+        String urlComplete
+
+        idDecoded=ShortenerUtils.decodeId(idEncoded)
+        urlRecord = UrlRecord.get(idDecoded)
+        urlComplete = urlRecord.urlComplete
+
+        redirect(url: "${urlComplete}")
     }
 
 }

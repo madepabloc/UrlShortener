@@ -1,6 +1,6 @@
 <div>
     <p>
-        <strong>Check your url shortened:</strong>
-        <a href="${data}">${data}</a>
+        <strong>${message(code: 'template.showUrlShortened')}:</strong>
+        <a target="_blank" href="${data}">${data}</a>
     </p>
 </div>
